@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Color Palette Quiz</title>
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.6.0/css/bootstrap.min.css"
+      integrity="sha384-+YQ4JLhjyBLPDQt//I+STsc9iw4uQqACwlvpslubQzn4t6dR6D9zC9wbE8+UI5fD"
+      crossorigin="anonymous"
+    >
+    <style>
+      html, body {
+        height: 100%;
+      }
+      body {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 1rem;
+        background-color: #f8f9fa;
+      }
+      .jumbotron {
+        margin-top: 2rem; /* Add margin to the top */
+      }
+      #quiz-container img {
+        width: 500px; /* Adjust image size to 500x500 */
+        height: 500px;
+      }
+      #choices {
+        list-style-type: none !important; /* Apply style to the ul directly */
+      }
+      h1, p, li, button {
+        font-size: 1.2em; /* Make font a bit bigger */
+        font-family: "Arial", sans-serif; /* Match the font family to the body shape quiz */
+      }
+    </style>
+  </head>
+  <body>
+    <div class="jumbotron text-center">
+      <div class="container py-4">
+        <h1 class="display-4">Color Palette Quiz</h1>
+        <div class="card shadow">
+          <div class="card-body text-center">
+            <div id="quiz-container" class="d-flex flex-column align-items-center">
+              <img src="palette.png" class="mb-4" />
+              <p id="question" class="h5"></p>
+              <ul id="choices">
+                <!-- choices will be added here dynamically -->
+              </ul>
+              <button id="submit-btn" class="btn btn-primary mt-3">Next</button>
+            </div>
+            <div id="results" style="display: none;"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script src="Quiz.js"></script>
+  </body>
+</html>
