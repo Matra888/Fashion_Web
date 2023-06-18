@@ -1,29 +1,63 @@
 <html>
     <head>
         <style>
+            body {
+                --padding-amount: 5px;
+                --margin-amount: 15px;
+            }
+
             .container {
                 display: flex;
                 flex-flow: row wrap;
                 justify-content: center;
             }
 
+            @keyframes fadein {
+                from { opacity: 0; }
+                to   { opacity: 1; }
+            }
+
             .container-item {
                 flex: 0 0 30%; 
                 min-width: 0; /*The content is configured to expand up to the maximum size of its container, without overflowing beyond the container's boundaries*/
                 background-color: #ccc; 
-                border: 1px solid #c00;
+                border: 1px solid #eee;
                 min-height: 150px;
-                margin: 15px;
-                padding: 5px;
+                margin: var(--margin-amount);
+                padding: var(--padding-amount);
+                box-shadow: 10px 5px 5px #eee;
+                box-sizing: border-box;
+                transition: box-shadow 0.5s;
+                animation: fadein 2s;
             }
 
             .container-item:nth-child(2n+1) {
-                background-color: #999;
+                background-color: #ddd;
+            }
+
+            .container-item-full {
+                flex: 0 0 calc(4 * var(--margin-amount) + 90%); 
+            }
+
+            .container-item:hover {
+                box-shadow: 10px 5px 5px #ccc;
+            }
+
+            @media only screen and (max-width: 1024px)  {
+                .container-item {
+                    flex: 0 0 45%;
+                }
+
+                .container-item-full {
+                    flex: 0 0 calc(2 * var(--margin-amount) + 90%); 
+                }
             }
 
             @media only screen and (max-width: 600px)  {
-                .container-item {
-                    flex: 0 0 45%;
+                .container-item,
+                .container-item-full
+                {
+                    flex: 0 0 80%;
                 }
             }
 
@@ -51,7 +85,14 @@
                 <h2>My Title1</h2>
                 <p>My paragraph with long text.</p>
             </div>
-            <div class="container-item"></div>
+            <div class="container-item">
+                <img src="./assets/Body Shape Title Image_Inverted Triangle.png"
+                     alt="Inverted Triangle Body Type"
+                     style="margin: auto; display: block; max-width: 100%;" />
+            </div>
+            <div class="container-item container-item-full">
+                ------------------------------------------------------------------------email-controls------------------------------------------------------------------------
+            </div>
             <div class="container-item"></div>
             <div class="container-item"></div>
             <div class="container-item"></div>
