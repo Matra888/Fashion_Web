@@ -7,6 +7,7 @@ import BodyTypeTest from "./pages/YourBodyType/YourBodyType";
 import MainLayout from "./layouts/MainLayout/MainLayout";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import YourBodyType from "./pages/YourBodyType/YourBodyType";
+import Blog from "./pages/Blog/Blog";
 
 const App = () => {
   return (
@@ -15,6 +16,7 @@ const App = () => {
         <Route path="/" element={<MainLayout />}>
           <Route index element={<Home />} />
           <Route path="/YourBodyType" element={<YourBodyType />} />
+          <Route path="/blog" element={<Blog />} />
           <Route path="/*" element={<NotFound />} />
         </Route>
       </Routes>
