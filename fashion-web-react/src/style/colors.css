@@ -1,0 +1,16 @@
+:root {
+  --black: #000000;
+  --white: #ffffff;
+  --beige: #c9a976;
+
+  /* button hover */
+  --darkorange: #db4008;
+  --whitesmoke: var(--whitesmoke);
+
+  /* Not found page */
+  --grey-bg: rgb(209, 209, 209);
+
+  /* random */
+  --gold: #d6ad60;
+  --gold-hover: #ae8b4b;
+}
