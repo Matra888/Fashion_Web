@@ -56,6 +56,11 @@ const Navigation = () => {
                   Your Color Palette
                 </a>
               </li>
+              <li className="nav-item align-self-center">
+                <a className="nav-link" href="/blog">
+                  Blog
+                </a>
+              </li>
             </ul>
           </div>
         </div>
