@@ -1,0 +1,53 @@
+/* SUBSCRIBE FORM */
+
+// .form {
+//   width: 40%;
+//   background-color: rgb(201, 169, 118);
+//   padding: 10px 20px;
+
+//   display: flex;
+//   flex-direction: column;
+//   flex-wrap: wrap;
+//   align-items: center;
+// }
+// .form__title {
+//   margin-top: 0;
+// }
+
+// .form__subtitle {
+//   margin: 10px 0 25px;
+//   font-size: 1.2rem;
+//   color: grey;
+//   text-transform: uppercase;
+// }
+
+.form__label {
+  // margin: 5px 0;
+  width: 100%;
+  font-weight: bold;
+}
+
+.form__input {
+  // margin: 5px 0 10px;
+  width: 100%;
+  max-width: 250px;
+
+  padding: 10px 15px;
+  border-radius: 5px;
+}
+
+.form__submit {
+  width: 250px;
+  margin-top: 20px;
+
+  padding: 10px 15px;
+  border-radius: 5px;
+
+  font-weight: bold;
+  background-color: var(--beige);
+  color: whitesmoke;
+}
+
+.form__submit:hover {
+  background-color: rgb(49, 49, 49);
+}
