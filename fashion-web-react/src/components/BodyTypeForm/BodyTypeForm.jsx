@@ -113,17 +113,20 @@ const BodyTypeForm = () => {
           />
         </div>
         {/* FORM SUBMIT BUTTON */}
-        <button
+        <a
+          role="button"
           type="submit"
+          href="/YourBodyTypeResult"
           className="btn btn-success col-md-2 mx-auto mt-5 mb-1"
         >
           Calculate My Body Type
-        </button>
+        </a>
       </form>
 
-      <div id="result" className="mt-2 text-light text-center col-md-6 mx-auto">
-        Result to be displayed here or redirect or pop-up?
-      </div>
+      {/* <div
+        id="result"
+        className="mt-2 text-light text-center col-md-6 mx-auto"
+      ></div> */}
     </main>
   );
 };

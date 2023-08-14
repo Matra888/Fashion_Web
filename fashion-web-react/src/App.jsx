@@ -7,6 +7,7 @@ import BodyTypeTest from "./pages/YourBodyType/YourBodyType";
 import MainLayout from "./layouts/MainLayout/MainLayout";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import YourBodyType from "./pages/YourBodyType/YourBodyType";
+import YourBodyTypeResult from "./pages/YourBodyTypeResult/YourBodyTypeResult";
 import Blog from "./pages/Blog/Blog";
 
 const App = () => {
@@ -18,6 +19,7 @@ const App = () => {
           <Route path="/YourBodyType" element={<YourBodyType />} />
           <Route path="/blog" element={<Blog />} />
           <Route path="/*" element={<NotFound />} />
+          <Route path="/YourBodyTypeResult" element={<YourBodyTypeResult />} />
         </Route>
       </Routes>
     </BrowserRouter>
