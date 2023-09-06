@@ -8,7 +8,6 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import YourBodyType from "./pages/YourBodyType/YourBodyType";
 import YourBodyTypeResult from "./pages/YourBodyTypeResult/YourBodyTypeResult";
 import Blog from "./pages/Blog/Blog";
-// import TestPage from "./pages/TestPage/TestPage";
 
 const App = () => {
   return (
