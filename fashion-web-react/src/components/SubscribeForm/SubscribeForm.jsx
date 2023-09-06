@@ -1,13 +1,15 @@
 import React from "react";
-import "./Form.scss";
+import "./SubscribeForm.scss";
 
-const Form = () => {
+const SubscribeForm = () => {
   return (
     <form
       className="subscribe-form text-light mb-5"
       action="/subscribe"
       method="post"
     >
+      <p className="text-secondary">Receive our full seasonal shopping guide</p>
+
       <label for="name" className="form__label text-secondary"></label>
       <br />
       <input
@@ -37,4 +39,4 @@ const Form = () => {
   );
 };
 
-export default Form;
+export default SubscribeForm;

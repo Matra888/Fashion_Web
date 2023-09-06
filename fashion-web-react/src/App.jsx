@@ -3,12 +3,12 @@ import "./App.css";
 
 import Home from "./pages/Home/Home";
 import NotFound from "./pages/NotFound/NotFound";
-import BodyTypeTest from "./pages/YourBodyType/YourBodyType";
 import MainLayout from "./layouts/MainLayout/MainLayout";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import YourBodyType from "./pages/YourBodyType/YourBodyType";
 import YourBodyTypeResult from "./pages/YourBodyTypeResult/YourBodyTypeResult";
 import Blog from "./pages/Blog/Blog";
+// import TestPage from "./pages/TestPage/TestPage";
 
 const App = () => {
   return (
