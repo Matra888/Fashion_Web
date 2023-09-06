@@ -1,0 +1,22 @@
+.item-card {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 300px;
+  text-decoration: none;
+  margin: 5px 0;
+}
+
+.button {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  margin-top: 10px;
+}
+
+@media only screen and (min-width: 768px) {
+  .item-card {
+    width: 230px;
+    max-width: 18%;
+  }
+}
