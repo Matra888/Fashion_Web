@@ -4,7 +4,7 @@ import HeroImage from "../../assets/hero-image-medium.jpg";
 
 const Hero = () => {
   return (
-    <main className="bg-dark">
+    <main className="bg-dark vh-100">
       <div className="container m-0 p-0 bg-dark">
         <div className="row g-0">
           <div className="col-md-6 order-md-1">
