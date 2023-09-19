@@ -6,11 +6,11 @@ const BodyTypeCalc = (shoulder, bust, waist, hips) => {
 
   // Your actual calculation logic here.
   if (shoulder > hips + 2 || bust > hips + 4) {
-    bodyShape = "Inverted Triangle";
+    bodyShape = "Inverted_triangle";
   } else if (hips > shoulder + 2 || hips > bust + 4) {
     bodyShape = "Triangle";
   } else if (waist > bust + 2 || waist > hips + 2) {
-    bodyShape = "Circle";
+    bodyShape = "Apple";
   } else if (Math.abs(shoulder - hips) < 8 && Math.abs(bust - hips) < 8 && Math.abs(waist - hips) < 8) {
     bodyShape = "Rectangle";
   } else if (Math.abs(shoulder - hips) < 8 && Math.abs(bust - hips) < 8 && Math.abs(waist - hips) >= 8) {
