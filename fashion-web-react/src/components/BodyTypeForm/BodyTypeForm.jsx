@@ -4,6 +4,7 @@ import BodyTypeDescription from "../../components/BodyTypeDescription/BodyTypeDe
 import RecommendedItems from "../../components/RecommendedItems/RecommendedItems";
 import SubscribeForm from "../../components/SubscribeForm/SubscribeForm";
 import "../../pages/YourBodyTypeResult/YourBodyTypeResult.scss";
+import { toggleClass, getElementFloatValue, toggleBlockElement, isPositiveNumber } from "../../helpers/helpers";
 
 const BodyTypeForm = () => {
   const [unit, setUnit] = useState("inches");
@@ -14,12 +15,33 @@ const BodyTypeForm = () => {
   };
 
   const calculateBodyType = () => {
-    let shoulder = parseFloat(document.getElementById("shoulder").value);
-    let bust = parseFloat(document.getElementById("bust").value);
-    let waist = parseFloat(document.getElementById("waist").value);
-    let hips = parseFloat(document.getElementById("hips").value);
-  
-    if (unit === "centimeters") {
+    const errorElem = document.getElementById('calc-error');
+    toggleBlockElement(errorElem, false);
+    errorElem.innerText = '';
+
+    const shoulderElem = document.getElementById('shoulder');
+    const bustElem = document.getElementById('bust');
+    const waistElem = document.getElementById('waist');
+    const hipsElem = document.getElementById('hips');
+
+    let shoulder = getElementFloatValue(shoulderElem);
+    let bust = getElementFloatValue(bustElem);
+    let waist = getElementFloatValue(waistElem);
+    let hips = getElementFloatValue(hipsElem);
+
+    toggleClass(shoulderElem, 'field-error', !isPositiveNumber(shoulder));
+    toggleClass(bustElem, 'field-error', !isPositiveNumber(bust));
+    toggleClass(waistElem, 'field-error', !isPositiveNumber(waist));
+    toggleClass(hipsElem, 'field-error', !isPositiveNumber(hips));
+
+    if (!isPositiveNumber(shoulder) || !isPositiveNumber(bust) || !isPositiveNumber(waist) || !isPositiveNumber(hips)) {
+      // Invalid input
+      toggleBlockElement(errorElem, true);
+      errorElem.innerText = 'Please check the highlighted values.'
+      return;
+    }
+
+    if (unit === 'centimeters') {
       shoulder /= 2.54;
       bust /= 2.54;
       waist /= 2.54;
@@ -27,6 +49,12 @@ const BodyTypeForm = () => {
     }
 
     const result = BodyTypeCalc(shoulder, bust, waist, hips);
+    if (result === 'Unclear') {
+      // Could not calculate a value based on the input
+      toggleBlockElement(errorElem, true);
+      errorElem.innerText = 'Body shape is not clearly defined.'
+      return;
+    }
 
     setShape(result);
   };
@@ -142,6 +170,7 @@ const BodyTypeForm = () => {
         >
           Calculate My Body Type
         </button>
+        <div id='calc-error' className="form-group col-md-6 mx-auto my-2" style={{ display: 'none', color: 'red' }}></div>
       </>
     );
     }
@@ -161,15 +190,9 @@ const BodyTypeForm = () => {
   }
   
   return (
-    <main className="description-page bg-dark container-fluid d-flex flex-column">
-      <form
-        id="bodyShapeForm"
-        className="container-fluid d-flex flex-column justify-content-center text-center p-5 mt-2"
-      >
-        <div>{render()}</div>
-      </form>
+    <main className="description-page bg-dark container-fluid d-flex flex-column justify-content-center text-center p-5 mt-2">
+      {render()}
     </main>
-
   );
 };
 
