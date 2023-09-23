@@ -1,17 +1,21 @@
 import React, { useState } from "react";
-import BodyTypeCalc from '../RecommendedItems/BodyTypeCalc'
+import BodyTypeCalc from '../../helpers/BodyTypeCalc'
 import BodyTypeDescription from "../../components/BodyTypeDescription/BodyTypeDescription";
 import RecommendedItems from "../../components/RecommendedItems/RecommendedItems";
-import SubscribeForm from "../../components/SubscribeForm/SubscribeForm";
-import "../../pages/YourBodyTypeResult/YourBodyTypeResult.scss";
-import { toggleClass, getElementFloatValue, toggleBlockElement, isPositiveNumber } from "../../helpers/helpers";
+import "./BodyTypeForm.scss";
+import { getElementFloatValue, getElementStringValue, toggleBlockElement,
+         isPositiveNumber, isAtoZString, isEmail,
+         serverStatistics, serverSubscribeToGuide } from "../../helpers/helpers";
 
 const BodyTypeForm = () => {
-  const [unit, setUnit] = useState("inches");
+  const [unit, setUnit] = useState('in');
   const [shape, setShape] = useState('');
+  
+  // TODO: needs a unique value
+  const [id, setId] = useState(Math.random());
 
   const toggleUnit = () => {
-    setUnit((prevUnit) => (prevUnit === "inches" ? "centimeters" : "inches"));
+    setUnit((prevUnit) => (prevUnit === 'in' ? 'cm' : 'in'));
   };
 
   const calculateBodyType = () => {
@@ -29,19 +33,20 @@ const BodyTypeForm = () => {
     let waist = getElementFloatValue(waistElem);
     let hips = getElementFloatValue(hipsElem);
 
-    toggleClass(shoulderElem, 'field-error', !isPositiveNumber(shoulder));
-    toggleClass(bustElem, 'field-error', !isPositiveNumber(bust));
-    toggleClass(waistElem, 'field-error', !isPositiveNumber(waist));
-    toggleClass(hipsElem, 'field-error', !isPositiveNumber(hips));
+    let hasError = false;
+    hasError |= shoulderElem.classList.toggle('field-error', !isPositiveNumber(shoulder));
+    hasError |= bustElem.classList.toggle('field-error', !isPositiveNumber(bust));
+    hasError |= waistElem.classList.toggle('field-error', !isPositiveNumber(waist));
+    hasError |= hipsElem.classList.toggle('field-error', !isPositiveNumber(hips));
 
-    if (!isPositiveNumber(shoulder) || !isPositiveNumber(bust) || !isPositiveNumber(waist) || !isPositiveNumber(hips)) {
+    if (hasError) {
       // Invalid input
       toggleBlockElement(errorElem, true);
-      errorElem.innerText = 'Please check the highlighted values.'
+      errorElem.innerText = 'Please check the highlighted values.';
       return;
     }
 
-    if (unit === 'centimeters') {
+    if (unit === 'cm') {
       shoulder /= 2.54;
       bust /= 2.54;
       waist /= 2.54;
@@ -56,136 +61,125 @@ const BodyTypeForm = () => {
       return;
     }
 
+    serverStatistics({ id, shoulder, bust, waist, hips });
+
     setShape(result);
   };
 
-  const render = () => {
-    if (!shape) {
+  const subscribeToGuide = () => {
+    const errorElem = document.getElementById('calc-error');
+    toggleBlockElement(errorElem, false);
+    errorElem.innerText = '';
+
+    const fullnameElem = document.getElementById('fullname');
+    const emailElem = document.getElementById('email');
+
+    let fullname = getElementStringValue(fullnameElem);
+    let email = getElementStringValue(emailElem);
+
+    let hasError = false;
+    hasError |= fullnameElem.classList.toggle('field-error', !isAtoZString(fullname));
+    hasError |= emailElem.classList.toggle('field-error', !isEmail(email));
+
+    if (hasError) {
+      // Invalid input
+      toggleBlockElement(errorElem, true);
+      errorElem.innerText = 'Please check the highlighted values.';
+      return;
+    }
+
+    serverSubscribeToGuide({ id, fullname, email });
+  }
+
+  const inputField = (fieldName, fieldLabel, fieldType) => {
+    // Key field added, otherwise React recycles the old inputs with their existing values
+    if (fieldType === 'number') {
       return (
+        <>
+          <div className="form-group col-md-2 mx-auto">
+            <label htmlFor={fieldName} className="text-light">{fieldLabel}</label>
+            <input id={fieldName} key={fieldName} type="number" min="0" step="1" className="form-control" />
+          </div>
+        </>
+      );
+    }
+    if (fieldType === 'string') {
+      return (
+        <>
+          <div className="form-group col-md-2 mx-auto">
+            <label htmlFor={fieldName} className="text-light">{fieldLabel}</label>
+            <input id={fieldName} key={fieldName} type="text" className="form-control" />
+          </div>
+        </>
+      );
+    }
+  }
+
+  const calculateForm = () => {
+    return (
       <>
-        {/* FORM TITLE */}
         <h1 className="display-4 text-light">Body Type Calculator</h1>
-        {/* INPUT: UNIT type choice for calculating measurements */}
+
         <div className="form-group col-md-6 mx-auto my-4">
           <label htmlFor="unit" className="text-light">
             Unit of Measurement:
-            <div
-              className="btn-group-toggle d-flex mt-2"
-              id="unit"
-              data-toggle="buttons"
-            >
-              {/* UNIT type A */}
-
-              <label
-                className={`btn mx-1 btn-outline-secondary ${
-                  unit === "inches" ? "active" : ""
-                }`}
-              >
-                <input
-                  type="radio"
-                  name="unit"
-                  value="inches"
-                  checked={unit === "inches"}
-                  onChange={toggleUnit}
-                />{" "}
+            <div id="unit" className="btn-group-toggle d-flex mt-2" data-toggle="buttons">
+              <label className={`btn mx-1 btn-outline-secondary ${unit === "in" ? "active" : ""}`}>
+                <input type="radio" name="unit" value="in" checked={unit === "in"} onChange={toggleUnit} />{" "}
                 Inches
               </label>
 
-              {/* UNIT type B */}
-
-              <label
-                className={`btn mx-1 btn-outline-secondary ${
-                  unit === "centimeters" ? "active" : ""
-                }`}
-              >
-                <input
-                  type="radio"
-                  name="unit"
-                  value="centimeters"
-                  checked={unit === "centimeters"}
-                  onChange={toggleUnit}
-                />{" "}
+              <label className={`btn mx-1 btn-outline-secondary ${unit === "cm" ? "active" : ""}`}>
+                <input type="radio" name="unit" value="cm" checked={unit === "cm"} onChange={toggleUnit} />{" "}
                 Centimeters
               </label>
             </div>
           </label>
         </div>
-        {/* INPUT: SHOULDER measurements */}
-        <div className="form-group col-md-2 mx-auto">
-          <label htmlFor="shoulder" className="text-light">
-            Shoulder Measurement:
-          </label>
-          <input
-            type="number"
-            id="shoulder"
-            min="0"
-            step="1"
-            className="form-control"
-          />
-        </div>
-        {/* INPUT: BUST measurements */}
-        <div className="form-group col-md-2 mx-auto">
-          <label htmlFor="bust" className="text-light">
-            Bust Measurement:
-          </label>
-          <input
-            type="number"
-            id="bust"
-            min="0"
-            step="1"
-            className="form-control"
-          />
-        </div>
-        {/* INPUT: WAIST measurements */}
-        <div className="form-group col-md-2 mx-auto">
-          <label htmlFor="waist" className="text-light">
-            Waist Measurement:
-          </label>
-          <input
-            type="number"
-            id="waist"
-            min="0"
-            step="1"
-            className="form-control"
-          />
-        </div>
-        {/* INPUT: HIP measurements */}
-        <div className="form-group col-md-2 mx-auto">
-          <label htmlFor="hips" className="text-light">
-            Hip Measurement:
-          </label>
-          <input
-            type="number"
-            id="hips"
-            min="0"
-            step="1"
-            className="form-control"
-          />
-        </div>
-        {/* FORM SUBMIT BUTTON */}
-        <button
-          type="button"
-          className="btn btn-success col-md-2 mx-auto mt-5 mb-1"
-          onClick={calculateBodyType}
-        >
+
+        {inputField('shoulder', 'Shoulder Measurement:', 'number')}
+        {inputField('bust', 'Bust Measurement:', 'number')}
+        {inputField('waist', 'Waist Measurement:', 'number')}
+        {inputField('hips', 'Hip Measurement:', 'number')}
+
+        <button type="button" className="btn btn-success col-md-2 mx-auto mt-5 mb-1" onClick={calculateBodyType}>
           Calculate My Body Type
         </button>
-        <div id='calc-error' className="form-group col-md-6 mx-auto my-2" style={{ display: 'none', color: 'red' }}></div>
+
+        <div id='calc-error' className="form-group col-md-6 mx-auto my-2 calc-error" style={{ display: 'none' }}></div>
       </>
     );
+  }
+
+  const resultsForm = () => {
+    return (
+      <>
+        <BodyTypeDescription bodyTypeToDescribe={shape} />
+        <h3 className="title accent">TOPS that will complement your body</h3>
+        <RecommendedItems bodyType={shape} />
+
+        <h3 className="title accent">Discover even more</h3>
+
+        <p className="text-secondary">Receive our full seasonal shopping guide</p>
+
+        {inputField('fullname', 'Full Name:', 'string')}
+        {inputField('email', 'E-mail:', 'string')}
+
+        <button type="button" className="btn btn-success col-md-2 mx-auto mt-5 mb-1" onClick={subscribeToGuide}>
+          Yes, send me the guide
+        </button>
+
+        <div id='calc-error' className="form-group col-md-6 mx-auto my-2 calc-error" style={{ display: 'none' }}></div>
+      </>
+    );
+  }
+
+  const render = () => {
+    if (!shape) {
+      return calculateForm();
     }
     else {
-      return (
-        <>
-          <BodyTypeDescription bodyTypeToDescribe={shape} />
-          <h3 className="title accent">TOPS that will complement your body</h3>
-          <RecommendedItems bodyType={shape} />
-          <div style={{ width: '300px', margin: '0 auto' }}>
-            <h3 className="title accent">Discover even more</h3>
-            <SubscribeForm />
-          </div>
-        </>
-      );
+      return resultsForm();
     }
   }
   
