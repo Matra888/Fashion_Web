@@ -12,32 +12,33 @@ const BodyTypeForm = () => {
   const [shape, setShape] = useState('');
   
   // TODO: needs a unique value
-  const [id, setId] = useState(Math.random());
+  const [id, setId] = useState(Math.random().toString());
 
   const toggleUnit = () => {
     setUnit((prevUnit) => (prevUnit === 'in' ? 'cm' : 'in'));
   };
 
   const calculateBodyType = () => {
-    const errorElem = document.getElementById('calc-error');
+    const errorElem = document.getElementById('calc-error') as HTMLDivElement;
     toggleBlockElement(errorElem, false);
     errorElem.innerText = '';
 
-    const shoulderElem = document.getElementById('shoulder');
-    const bustElem = document.getElementById('bust');
-    const waistElem = document.getElementById('waist');
-    const hipsElem = document.getElementById('hips');
+    const shoulderElem = document.getElementById('shoulder') as HTMLInputElement;
+    const bustElem = document.getElementById('bust') as HTMLInputElement;
+    const waistElem = document.getElementById('waist') as HTMLInputElement;
+    const hipsElem = document.getElementById('hips') as HTMLInputElement;
 
     let shoulder = getElementFloatValue(shoulderElem);
     let bust = getElementFloatValue(bustElem);
     let waist = getElementFloatValue(waistElem);
     let hips = getElementFloatValue(hipsElem);
 
+    // Assignment + reverse variable order to prevent shortcircuit. Otherwise the boxes after the first error will not be highlighted.
     let hasError = false;
-    hasError |= shoulderElem.classList.toggle('field-error', !isPositiveNumber(shoulder));
-    hasError |= bustElem.classList.toggle('field-error', !isPositiveNumber(bust));
-    hasError |= waistElem.classList.toggle('field-error', !isPositiveNumber(waist));
-    hasError |= hipsElem.classList.toggle('field-error', !isPositiveNumber(hips));
+    hasError = shoulderElem.classList.toggle('field-error', !isPositiveNumber(shoulder)) || hasError;
+    hasError = bustElem.classList.toggle('field-error', !isPositiveNumber(bust)) || hasError;
+    hasError = waistElem.classList.toggle('field-error', !isPositiveNumber(waist)) || hasError;
+    hasError = hipsElem.classList.toggle('field-error', !isPositiveNumber(hips)) || hasError;
 
     if (hasError) {
       // Invalid input
@@ -67,19 +68,20 @@ const BodyTypeForm = () => {
   };
 
   const subscribeToGuide = () => {
-    const errorElem = document.getElementById('calc-error');
+    const errorElem = document.getElementById('calc-error') as HTMLDivElement;
     toggleBlockElement(errorElem, false);
     errorElem.innerText = '';
 
-    const fullnameElem = document.getElementById('fullname');
-    const emailElem = document.getElementById('email');
+    const fullnameElem = document.getElementById('fullname') as HTMLInputElement;
+    const emailElem = document.getElementById('email') as HTMLInputElement;
 
     let fullname = getElementStringValue(fullnameElem);
     let email = getElementStringValue(emailElem);
 
+    // Assignment + reverse variable order to prevent shortcircuit. Otherwise the boxes after the first error will not be highlighted.
     let hasError = false;
-    hasError |= fullnameElem.classList.toggle('field-error', !isAtoZString(fullname));
-    hasError |= emailElem.classList.toggle('field-error', !isEmail(email));
+    hasError = fullnameElem.classList.toggle('field-error', !isAtoZString(fullname)) || hasError;
+    hasError = emailElem.classList.toggle('field-error', !isEmail(email)) || hasError;
 
     if (hasError) {
       // Invalid input
