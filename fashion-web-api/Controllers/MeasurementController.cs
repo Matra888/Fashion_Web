@@ -42,28 +42,26 @@ public class MeasurementController : ControllerBase
     [HttpGet(Name = "GetMeasurements")]
     public IEnumerable<Measurement> Get()
     {
+        _connection.Open();
+        var cmd = new NpgsqlCommand("SELECT * FROM measurements", _connection);
+
+        var reader = cmd.ExecuteReader();
+        var measurements = new List<Measurement>();
+        while (reader.Read())
         {
-            _connection.Open();
-            var cmd = new NpgsqlCommand("SELECT * FROM measurements", _connection);
-
-            var reader = cmd.ExecuteReader();
-            var measurements = new List<Measurement>();
-            while (reader.Read())
+            measurements.Add(new Measurement
             {
-                measurements.Add(new Measurement
-                {
-                    Id = reader.GetString(0),
-                    Shoulder = reader.GetFloat(1),
-                    Bust = reader.GetFloat(2),
-                    Waist = reader.GetFloat(3),
-                    Hips = reader.GetFloat(4)
-                });
-            }
-
-            _connection.Close();
-
-            return measurements;
+                Id = reader.GetString(0),
+                Shoulder = reader.GetFloat(1),
+                Bust = reader.GetFloat(2),
+                Waist = reader.GetFloat(3),
+                Hips = reader.GetFloat(4)
+            });
         }
+
+        _connection.Close();
+
+        return measurements;
     }
 
     [HttpPost(Name = "PutMeasurement")]
