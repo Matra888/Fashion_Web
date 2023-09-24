@@ -3,14 +3,16 @@ import BodyTypeCalc from '../../helpers/BodyTypeCalc'
 import BodyTypeDescription from "../../components/BodyTypeDescription/BodyTypeDescription";
 import RecommendedItems from "../../components/RecommendedItems/RecommendedItems";
 import "./BodyTypeForm.scss";
-import { getElementFloatValue, getElementStringValue, toggleBlockElement,
-         isPositiveNumber, isAtoZString, isEmail,
-         serverStatistics, serverSubscribeToGuide } from "../../helpers/helpers";
+import {
+  getElementFloatValue, getElementStringValue, toggleBlockElement,
+  isPositiveNumber, isAtoZString, isEmail,
+  serverStatistics, serverSubscribeToGuide
+} from "../../helpers/helpers";
 
 const BodyTypeForm = () => {
   const [unit, setUnit] = useState('in');
   const [shape, setShape] = useState('');
-  
+
   // TODO: needs a unique value
   const [id, setId] = useState(Math.random().toString());
 
@@ -93,7 +95,7 @@ const BodyTypeForm = () => {
     serverSubscribeToGuide({ id, fullname, email });
   }
 
-  const inputField = (fieldName, fieldLabel, fieldType) => {
+  const inputField = (fieldName: string, fieldLabel: string, fieldType: "string" | "number") => {
     // Key field added, otherwise React recycles the old inputs with their existing values
     if (fieldType === 'number') {
       return (
@@ -184,7 +186,7 @@ const BodyTypeForm = () => {
       return resultsForm();
     }
   }
-  
+
   return (
     <main className="description-page bg-dark container-fluid d-flex flex-column justify-content-center text-center p-5 mt-2">
       {render()}
