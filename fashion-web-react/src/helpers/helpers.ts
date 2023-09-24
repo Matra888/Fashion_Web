@@ -33,8 +33,19 @@ interface Measurement {
     hips: number
 }
 
-const serverStatistics = (payload : Measurement) => {
+const serverStatistics = (payload: Measurement) => {
     console.log("Statistics call", payload);
+
+    fetch('http://localhost:5246/Measurement', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(payload)
+    })
+    .then(response => response.json())
+    .then(data => console.log(data))
+    .catch(error => console.error('Error:', error));
 }
 
 interface Subscription {
