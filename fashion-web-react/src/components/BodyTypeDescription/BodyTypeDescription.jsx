@@ -17,7 +17,7 @@ const BodyTypeDescription = ({ bodyTypeToDescribe }) => {
     <>
       <div className="body-type__container">
         <h2 className="body-type__title text-light">
-          Your body type is <span className="accent">{bodyType}</span>
+          More about <span className="accent">{bodyType}</span> body type
         </h2>
 
         <img className="body-type__image" src={bodyTypePicture} />
