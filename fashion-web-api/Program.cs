@@ -20,10 +20,10 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 
     // Enable for local development, or set up exact CORS rules
-    // app.UseCors(builder => 
-    //     builder.AllowAnyOrigin()
-    //            .AllowAnyMethod()
-    //            .AllowAnyHeader());
+    app.UseCors(builder => 
+        builder.AllowAnyOrigin()
+               .AllowAnyMethod()
+               .AllowAnyHeader());
 }
 
 app.UseHttpsRedirection();
