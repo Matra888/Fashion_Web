@@ -33,7 +33,7 @@ interface Measurement {
     hips: number
 }
 
-const serverStatistics = (payload: Measurement) => {
+const serverStatistics = (payload: Measurement, onSuccess: () => void, onError: () => void) => {
     console.log("Statistics call", payload);
 
     fetch('http://localhost:5246/Measurement', {
@@ -43,19 +43,44 @@ const serverStatistics = (payload: Measurement) => {
         },
         body: JSON.stringify(payload)
     })
-    .then(response => response.json())
-    .then(data => console.log(data))
+    .then(response => {
+        if (response.status === 200) {
+            console.log('Success:', response.statusText);
+            onSuccess();
+        } else {
+            console.log('Error:', response.statusText);
+            onError();
+        }
+    })
     .catch(error => console.error('Error:', error));
 }
 
 interface Subscription {
     id: string;
-    fullname: string;
+    fullName: string;
     email: string;
 }
 
-const serverSubscribeToGuide = (payload: Subscription) => {
+const serverSubscribeToGuide = (payload: Subscription, onSuccess: () => void, onError: () => void) => {
     console.log("Subscription call", payload);
+
+    fetch('http://localhost:5246/Subscription', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(payload)
+    })
+    .then(response => {
+        if (response.status === 200) {
+            console.log('Success:', response.statusText);
+            onSuccess();
+        } else {
+            console.log('Error:', response.statusText);
+            onError();
+        }
+    })
+    .catch(error => console.error('Error:', error));
 }
 
 export {

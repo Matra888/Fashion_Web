@@ -81,7 +81,7 @@ const BodyTypeForm = () => {
       return;
     }
 
-    serverStatistics({ id, shoulder, bust, waist, hips });
+    serverStatistics({ id, shoulder, bust, waist, hips }, () => {}, () => {});
 
     setShape(result);
   };
@@ -96,13 +96,13 @@ const BodyTypeForm = () => {
     ) as HTMLInputElement;
     const emailElem = document.getElementById("email") as HTMLInputElement;
 
-    let fullname = getElementStringValue(fullnameElem);
+    let fullName = getElementStringValue(fullnameElem);
     let email = getElementStringValue(emailElem);
 
     // Assignment + reverse variable order to prevent shortcircuit. Otherwise the boxes after the first error will not be highlighted.
     let hasError = false;
     hasError =
-      fullnameElem.classList.toggle("field-error", !isAtoZString(fullname)) ||
+      fullnameElem.classList.toggle("field-error", !isAtoZString(fullName)) ||
       hasError;
     hasError =
       emailElem.classList.toggle("field-error", !isEmail(email)) || hasError;
@@ -114,8 +114,17 @@ const BodyTypeForm = () => {
       return;
     }
 
-    serverSubscribeToGuide({ id, fullname, email });
-  };
+    serverSubscribeToGuide({ id, fullName, email }, () => {
+      let subscribeButton = document.getElementById('subscribeButton') as HTMLButtonElement | null;
+      if (subscribeButton) {
+        subscribeButton.disabled = true;
+        let result = document.createElement('div');
+        result.innerText = 'Registration successful.';
+        result.style.color = '#fff';
+        subscribeButton.insertAdjacentElement('afterend', result);
+      }
+    }, () => {});
+  }
 
   const inputField = (
     fieldName: string,
@@ -248,6 +257,7 @@ const BodyTypeForm = () => {
           {inputField("email", "E-mail:", "string")}
 
           <button
+            id="subscribeButton"
             type="button"
             className="btn btn-success col-md-2 mx-auto mt-5 mb-1"
             onClick={subscribeToGuide}
