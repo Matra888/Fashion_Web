@@ -81,7 +81,11 @@ const BodyTypeForm = () => {
       return;
     }
 
-    serverStatistics({ id, shoulder, bust, waist, hips }, () => {}, () => {});
+    serverStatistics(
+      { id, shoulder, bust, waist, hips },
+      () => {},
+      () => {}
+    );
 
     setShape(result);
   };
@@ -114,17 +118,23 @@ const BodyTypeForm = () => {
       return;
     }
 
-    serverSubscribeToGuide({ id, fullName, email }, () => {
-      let subscribeButton = document.getElementById('subscribeButton') as HTMLButtonElement | null;
-      if (subscribeButton) {
-        subscribeButton.disabled = true;
-        let result = document.createElement('div');
-        result.innerText = 'Registration successful.';
-        result.style.color = '#fff';
-        subscribeButton.insertAdjacentElement('afterend', result);
-      }
-    }, () => {});
-  }
+    serverSubscribeToGuide(
+      { id, fullName, email },
+      () => {
+        let subscribeButton = document.getElementById(
+          "subscribeButton"
+        ) as HTMLButtonElement | null;
+        if (subscribeButton) {
+          subscribeButton.disabled = true;
+          let result = document.createElement("div");
+          result.innerText = "Registration successful.";
+          result.style.color = "#fff";
+          subscribeButton.insertAdjacentElement("afterend", result);
+        }
+      },
+      () => {}
+    );
+  };
 
   const inputField = (
     fieldName: string,
@@ -241,6 +251,8 @@ const BodyTypeForm = () => {
   const resultsForm = () => {
     return (
       <>
+        <BodyTypeDescription bodyTypeToDescribe={shape} />
+
         <h3 className="title accent">TOPS that will complement your body</h3>
         <RecommendedItems bodyType={shape} />
 
@@ -271,8 +283,6 @@ const BodyTypeForm = () => {
             style={{ display: "none" }}
           ></div>
         </div>
-
-        <BodyTypeDescription bodyTypeToDescribe={shape} />
       </>
     );
   };
