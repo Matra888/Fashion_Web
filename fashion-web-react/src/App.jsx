@@ -7,6 +7,7 @@ import MainLayout from "./layouts/MainLayout/MainLayout";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import YourBodyType from "./pages/YourBodyType/YourBodyType";
 import Blog from "./pages/Blog/Blog";
+import Policy from "./pages/Policy/Policy";
 
 const App = () => {
   return (
@@ -16,6 +17,7 @@ const App = () => {
           <Route index element={<Home />} />
           <Route path="/YourBodyType" element={<YourBodyType />} />
           <Route path="/blog" element={<Blog />} />
+          <Route path="/policy" element={<Policy />} />
           <Route path="/*" element={<NotFound />} />
         </Route>
       </Routes>

@@ -1,0 +1,23 @@
+.policy-page {
+  width: 100vw;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+
+  padding: 70px 50px;
+}
+.policy__post {
+  width: 100%;
+}
+
+.policy__title {
+  color: var(--beige);
+}
+
+.policy__title {
+  color: white;
+}
+
+.policy__text {
+  text-align: justify;
+}

@@ -19,7 +19,7 @@ const CookieBanner = () => {
       >
         <p className="mb-0 text-light p-2">
           We use cookies to enhance your experience. Read more about our{" "}
-          <a href="/privacy-policy">cookies and privacy policy</a>.
+          <a href="/policy">cookies and privacy policy</a>.
         </p>
         <div>
           <button className="btn btn-success m-2" onClick={handleAcceptAll}>

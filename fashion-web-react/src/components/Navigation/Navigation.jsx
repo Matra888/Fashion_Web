@@ -42,6 +42,7 @@ const Navigation = () => {
           </div>
           <div className="offcanvas-body">
             <ul className="navbar-nav justify-content-end flex-grow-1 pe-3">
+              {/* Link to our Body Type section*/}
               <li className="nav-item align-self-center">
                 <a
                   className="nav-link active"
@@ -51,11 +52,13 @@ const Navigation = () => {
                   Your Body Type
                 </a>
               </li>
+              {/* Link to our Color Palette section */}
               <li className="nav-item align-self-center">
                 <a className="nav-link" href="/">
                   Your Color Palette
                 </a>
               </li>
+              {/* Link to our Blog section */}
               <li className="nav-item align-self-center">
                 <a className="nav-link" href="/blog">
                   Blog
