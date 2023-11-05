@@ -11,14 +11,15 @@
   width: 100%;
 }
 
-.blog-post__title {
+.blog-post>h2,
+.blog-post>h3 {
   color: var(--beige);
 }
 
-.blog-post__image {
+.blog-post>img {
   margin: 2% 0;
 }
 
-.blog-post__text {
+.blog-post>p {
   text-align: justify;
 }
