@@ -25,3 +25,27 @@
 .blog-post>p {
   text-align: justify;
 }
+
+.products {
+  display: flex;
+  flex-flow: row wrap;
+  width: 100%;
+  max-width: 1024px;
+}
+
+.product-card {
+  max-width: 25%;
+  padding: 10px;
+}
+
+.product-card:hover {
+  padding: 2px;
+}
+
+.product-card>img {
+  max-width: 100%;
+}
+
+.product-tags {
+  font-size: x-small;
+}

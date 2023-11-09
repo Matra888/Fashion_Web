@@ -83,6 +83,36 @@ const serverSubscribeToGuide = (payload: Subscription, onSuccess: () => void, on
     .catch(error => console.error('Error:', error));
 }
 
+interface Product {
+    id: string;
+    title: string;
+    image: string;
+    tags: string[];
+}
+
+const readProducts = (onSuccess: (products : Product[]) => void, onError: () => void) => {
+    console.log("Products call");
+
+    fetch('http://localhost:5246/Product', {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    })
+    .then(response => {
+        if (response.status === 200) {
+            console.log('Success:', response.statusText);
+            response.json().then(products => {
+                onSuccess((products as any) as Product[]);
+            });
+        } else {
+            console.log('Error:', response.statusText);
+            onError();
+        }
+    })
+    .catch(error => console.error('Error:', error));
+}
+
 export {
     getElementFloatValue,
     getElementStringValue,
@@ -91,5 +121,6 @@ export {
     isAtoZString,
     isEmail,
     serverStatistics,
-    serverSubscribeToGuide
+    serverSubscribeToGuide,
+    readProducts
 }

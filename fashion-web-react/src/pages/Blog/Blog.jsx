@@ -1,5 +1,6 @@
 import React from "react";
 import "./Blog.scss";
+import { readProducts } from "../../helpers/helpers";
 //Update end of filepath (/image-name.png) to match the name of the image in the assets folder.
 import Image1 from "../../assets/logo.png";
 import Image2 from "../../assets/logo.png";
@@ -9,6 +10,37 @@ import Image5 from "../../assets/logo.png";
 import Image6 from "../../assets/logo.png";
 import RedCoatWomanImage from "../../assets/Red_Coat_Woman.png"; // Import the first image
 import SheepCoatWomanImage from "../../assets/Sheep_Coat_Woman.png"; // Import the second image
+
+const getProducts = () => {
+  readProducts((products) => {
+    var productsDiv = document.getElementById("products-container");
+
+    for (let i = 0; i < products.length; ++i) {
+      let productDiv = document.createElement("div");
+      productDiv.classList.add("product-card");
+
+      let productTitle = document.createElement("div");
+      productTitle.innerText = products[i].title;
+
+      productDiv.appendChild(productTitle);
+
+      let productImage = document.createElement("img");
+      productImage.alt = products[i].title;
+      productImage.src = "http://localhost:5246/Image/" + products[i].image;
+      productImage.maxWidth = "100%";
+
+      productDiv.appendChild(productImage);
+
+      let productTags = document.createElement("div");
+      productTags.innerText = products[i].tags.join(" ");
+      productTags.classList.add("product-tags");
+
+      productDiv.appendChild(productTags);
+
+      productsDiv.appendChild(productDiv);
+    }
+  }, () => { });
+}
 
 const Blog = () => {
   return (
@@ -73,6 +105,9 @@ const Blog = () => {
           mind, you’re sure to find a coat or jacket that not only keeps you
           warm but also makes you look and feel fabulous.
         </p>
+      </div>
+      <div id="products-container" className="products">
+        {getProducts()}
       </div>
     </main>
   );
