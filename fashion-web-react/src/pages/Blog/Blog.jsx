@@ -12,8 +12,17 @@ import RedCoatWomanImage from "../../assets/Red_Coat_Woman.png"; // Import the f
 import SheepCoatWomanImage from "../../assets/Sheep_Coat_Woman.png"; // Import the second image
 
 const getProducts = () => {
-  readProducts((products) => {
+  let select = document.getElementById("tag-select");
+  let selectedTag = select?.value;
+  if (selectedTag === 'All') {
+    selectedTag = null;
+  }
+
+  readProducts(selectedTag, (products) => {
     var productsDiv = document.getElementById("products-container");
+    while (productsDiv.lastChild) {
+      productsDiv.removeChild(productsDiv.lastChild);
+    }
 
     for (let i = 0; i < products.length; ++i) {
       let productDiv = document.createElement("div");
@@ -105,6 +114,14 @@ const Blog = () => {
           mind, you’re sure to find a coat or jacket that not only keeps you
           warm but also makes you look and feel fabulous.
         </p>
+      </div>
+      <div>
+        <select id="tag-select" onChange={getProducts}>
+          <option value="All">All</option>
+          <option value="Black">Black</option>
+          <option value="Red">Red</option>
+          <option value="Unisex">Unisex</option>
+        </select>
       </div>
       <div id="products-container" className="products">
         {getProducts()}
