@@ -8,6 +8,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import YourBodyType from "./pages/YourBodyType/YourBodyType";
 import Blog from "./pages/Blog/Blog";
 import Policy from "./pages/Policy/Policy";
+import LandingPage from "./pages/LandingPage/LandingPage";
 
 const App = () => {
   return (
@@ -18,6 +19,7 @@ const App = () => {
           <Route path="/YourBodyType" element={<YourBodyType />} />
           <Route path="/blog" element={<Blog />} />
           <Route path="/policy" element={<Policy />} />
+          <Route path="/landing-test" element={<LandingPage />} />
           <Route path="/*" element={<NotFound />} />
         </Route>
       </Routes>

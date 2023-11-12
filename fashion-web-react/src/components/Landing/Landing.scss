@@ -1,0 +1,42 @@
+.hero-image {
+  max-height: 100vh;
+}
+
+.bg-container {
+  background-image: url("../../assets/hero-image.png");
+  opacity: 50%;
+}
+
+.accent {
+  color: var(--beige);
+}
+
+.landing__subtitle {
+  margin: 15px 0 5px;
+}
+
+// Modifications to Bootstrap classes
+
+.btn-success {
+  font-weight: 600 !important;
+  color: black !important;
+  background-color: var(--gold) !important;
+  border: 2px solid var(--gold) !important;
+
+  &:hover {
+    color: var(--white) !important;
+    background-color: var(--gold-hover) !important;
+    border: 2px solid var(--gold-hover) !important;
+  }
+}
+
+.btn-outline-success {
+  color: var(--gold) !important;
+  border: 2px solid var(--gold) !important;
+
+  &:hover {
+    color: var(--white) !important;
+    background-color: var(--gold-hover) !important;
+    border: 2px solid var(--gold-hover) !important;
+  }
+}
