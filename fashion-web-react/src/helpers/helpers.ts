@@ -90,10 +90,15 @@ interface Product {
     tags: string[];
 }
 
-const readProducts = (onSuccess: (products : Product[]) => void, onError: () => void) => {
+const readProducts = (filter: string, onSuccess: (products: Product[]) => void, onError: () => void) => {
     console.log("Products call");
 
-    fetch('http://localhost:5246/Product', {
+    let url = 'http://localhost:5246/Product';
+    if (filter) {
+        url += `?tagFilter=${filter}`;
+    }
+
+    fetch(url, {
         method: 'GET',
         headers: {
             'Content-Type': 'application/json'

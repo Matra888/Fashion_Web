@@ -17,13 +17,22 @@ public class ProductController : ControllerBase
     }
 
     [HttpGet(Name = "GetProducts")]
-    public IEnumerable<Product> Get()
+    public IEnumerable<Product> Get(string? tagFilter = null) // Optional string parameter
     {
         var products = new List<Product>();
 
         _connection.Open();
         {
-            using var cmd = new NpgsqlCommand("SELECT id, title, image FROM products;", _connection);
+            using var cmd = new NpgsqlCommand("SELECT id, title, image FROM products WHERE (@tagFilter IS NULL OR id IN(" +
+                                              "SELECT DISTINCT(product_id) FROM product_tags INNER JOIN tag_names ON product_tags.tag_id = tag_names.id WHERE tag_names.tag_name = @tagFilter));", _connection);
+            var parameter = new NpgsqlParameter
+            {
+                ParameterName = "tagFilter",
+                NpgsqlDbType = NpgsqlTypes.NpgsqlDbType.Varchar,
+                Value = tagFilter != null ? tagFilter : DBNull.Value
+            };
+            cmd.Parameters.Add(parameter);
+
             using var reader = cmd.ExecuteReader();
             while (reader.Read())
             {
