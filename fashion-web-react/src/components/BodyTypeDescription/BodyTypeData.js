@@ -31,11 +31,10 @@ const BodyTypeData = {
     bodyType: "Inverted Triangle",
     bodyTypePicture: invertedImage,
     styleRecommendations: [
-      "1. Opt for tops that draw attention away from the shoulders. V-necklines and scoop necks are flattering as they create a vertical line and elongate the torso. Avoid high-neck tops, boat necks, or any styles that emphasize the shoulders.",
-      "2. Choose bottoms that add volume to the hips and create a curvier silhouette. A-line skirts, flared pants, and wide-leg trousers can help achieve this. Patterns and details on the lower body can also help draw attention downward.",
-      "3. Experiment with layering to create visual interest and balance. Wearing a jacket or cardigan that falls below the hips can help add volume to the lower body and create a more proportionate look.",
-      "4. Cinch the waist with a belt to create definition and enhance an hourglass shape. This will help balance the broad shoulders and draw attention to the waistline.",
-      "5. Use color strategically to create balance. Darker shades on the upper body can help minimize the broadness, while lighter or brighter colors on the lower body can draw attention downward. Avoid bold patterns or details on the shoulders.",
+      "1. TOP: Opt for tops that draw attention away from the shoulders and elongate the torso. Avoid any styles that emphasize the shoulders.",
+      "2. BOTTOM: Add volume to the hips and create a curvier silhouette. Draw attention downwards with colors, patterns and details on the lower body.",
+      "3. BALANCE PROPORTIONS by highlighting your waist, consider wearing a jacket or cardigan that falls below the hips.",
+      "4. HEIGHT: If your are tall, opt for midi to maxi length. If you are short, knee-length bottoms will be the best choice.",
     ],
   },
   Apple: {

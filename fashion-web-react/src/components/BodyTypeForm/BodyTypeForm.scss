@@ -9,7 +9,15 @@
 
   .title {
     text-align: center;
-    margin: 40px 10px 30px;
+    margin: 40px 10px 5px;
+  }
+  .subtitle {
+    text-align: center;
+    color: gray;
+    font-size: 0.9rem;
+    font-style: normal;
+    text-transform: capitalize;
+    margin: 5px 10px 20px;
   }
 }
 

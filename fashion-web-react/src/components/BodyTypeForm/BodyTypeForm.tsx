@@ -253,19 +253,20 @@ const BodyTypeForm = () => {
       <>
         <BodyTypeDescription bodyTypeToDescribe={shape} />
 
-        <h3 className="title accent">TOPS that will complement your body</h3>
+        <h3 className="title accent">Preview of Your New Capsule Wardrobe</h3>
+        <h4 className="subtitle">
+          Subscribe to Receive Full Access and Unlock More Options
+        </h4>
         <RecommendedItems bodyType={shape} />
 
         <div id="email-subscribe-form">
-          <h3 className="title accent">
-            Discover matching BOTTOMS and even more...
-          </h3>
+          <h3 className="title accent">Reinvent Your Style Today!</h3>
 
           <p className="text-secondary">
-            Receive our full seasonal shopping guide
+            Unlock full capsule wardrobe + seasonal shopping guide
           </p>
 
-          {inputField("fullname", "Full Name:", "string")}
+          {inputField("fullname", "Your Name:", "string")}
           {inputField("email", "E-mail:", "string")}
 
           <button
@@ -274,7 +275,7 @@ const BodyTypeForm = () => {
             className="btn btn-success col-md-2 mx-auto mt-5 mb-1"
             onClick={subscribeToGuide}
           >
-            Yes, send me the guide
+            Subscribe
           </button>
 
           <div

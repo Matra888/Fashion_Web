@@ -22,7 +22,7 @@ const BodyTypeDescription = ({ bodyTypeToDescribe }) => {
 
         <img className="body-type__image" src={bodyTypePicture} />
 
-        <div className="style-recommendations__container text-light">
+        {/* <div className="style-recommendations__container text-light">
           <h3 className="style-recommendations__title accent">
             Styles that will look great:
           </h3>
@@ -31,7 +31,7 @@ const BodyTypeDescription = ({ bodyTypeToDescribe }) => {
               <div key={index}>{item}</div>
             ))}
           </div>
-        </div>
+        </div> */}
       </div>
     </>
   );
